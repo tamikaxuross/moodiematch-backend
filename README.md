@@ -1,5 +1,5 @@
 Moodie Match helps users take a short quiz and get a personalized movie recommendation. Users can also view and save their favorite movies.
-This frontend communicates with a Flask backend API and uses the TMDb API for movie data.
+This frontend communicates with a Node.js and Express backend and uses the TMDb API for movie data.
 
 ## Tech Stack
 
@@ -7,7 +7,7 @@ This frontend communicates with a Flask backend API and uses the TMDb API for mo
 - Vite
 - Axios
 - React Router
--  CSS 
+- CSS 
 
 ## Features
 
