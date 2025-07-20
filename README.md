@@ -1,17 +1,22 @@
-Moodie Match helps users take a short quiz and get a personalized movie recommendation. Users can also view and save their favorite movies.
-This frontend communicates with a Node.js and Express backend and uses the TMDb API for movie data.
+This is the backend of the Moodie Match application, built using Node.js and Express.js.
+
+## Overview
+
+The backend handles quiz submissions, processes answers, generates movie recommendations, and interacts with the TMDb API. It also manages user data and favorite movies.
 
 ## Tech Stack
 
-- React
-- Vite
-- Axios
-- React Router
-- CSS 
+- Node.js
+- Express.js
+- PostgreSQL
+- dotenv
+- CORS
+- TMDb API
 
 ## Features
 
-- Quiz form that gathers user preferences
-- Movie recommendation result page
-- Navigation between pages using React Router
-- Axios used for all API requests to the backend
+- Accepts quiz submissions via POST
+- Returns recommended movie data
+- Stores and retrieves user information
+- Manages favorite movies
+- Serves JSON responses and accepts JSON requests
