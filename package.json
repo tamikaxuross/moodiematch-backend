@@ -1,0 +1,27 @@
+{
+  "name": "moodiematch-backend",
+  "version": "1.0.0",
+  "description": "This is the backend of the Moodie Match application, built using Node.js and Express.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamikaxuross/moodiematch-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tamikaxuross/moodiematch-backend/issues"
+  },
+  "homepage": "https://github.com/tamikaxuross/moodiematch-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  }
+}
