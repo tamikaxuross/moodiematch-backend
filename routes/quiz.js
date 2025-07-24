@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
       "INSERT INTO quizzes (user_id) VALUES ($1) RETURNING id",
       [user_id]
     );
-    const quizId = quizResult.rows[0].id;
+    quizId = quizResult.rows[0].id;
     console.log("Created quiz ID:", quizId);
   } catch (error) {
     console.error("Quiz creation failed:", error);
@@ -57,8 +57,40 @@ router.post("/", async (req, res) => {
     return res.status(500).json({ error: "Could not update quiz with movie" });
   }
 
-  res.json({ movie });
+  res.json({ quiz_id: quizId, movie });
 });
+
+// GET /api/quiz/:id — Get quiz + movie result
+router.get("/:id", async (req, res) => {
+  const quizId = req.params.id;
+
+  try {
+    const quizResult = await db.query("SELECT * FROM quizzes WHERE id = $1", [quizId]);
+
+    if (quizResult.rows.length === 0) {
+      return res.status(404).json({ message: "Quiz not found" });
+    }
+
+    const quiz = quizResult.rows[0];
+
+    const movieResult = await db.query(
+      "SELECT * FROM movies WHERE id = $1",
+      [quiz.result_movie_id]
+    );
+
+    if (movieResult.rows.length === 0) {
+      return res.status(404).json({ message: "Movie not found" });
+    }
+
+    const movie = movieResult.rows[0];
+
+    res.json({ quiz_id: quiz.id, movie });
+  } catch (error) {
+    console.error("Error fetching quiz result:", error);
+    res.status(500).json({ error: "Server error while retrieving quiz result" });
+  }
+});
+
 
 module.exports = router;
 
