@@ -23,6 +23,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.send("MoodieMatch backend is running ");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
