@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
         [quizId, item.question, item.answer]
       );
     }
-    console.log("✅ Answers inserted");
+    console.log("Answers inserted");
   } catch (error) {
     console.error("Inserting answers failed:", error);
     return res.status(500).json({ error: "Could not insert quiz answers" });
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
       "UPDATE quizzes SET result_movie_id = $1 WHERE id = $2",
       [movie.id, quizId]
     );
-    console.log("✅ Linked movie to quiz");
+    console.log("Linked movie to quiz");
   } catch (error) {
     console.error("Updating quiz with movie failed:", error);
     return res.status(500).json({ error: "Could not update quiz with movie" });
