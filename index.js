@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+console.log("🌐 Connected to:", process.env.DATABASE_URL);
+
 const userRoutes = require("./routes/users");
 const quizRoutes = require("./routes/quiz");
 
