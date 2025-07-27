@@ -2,7 +2,7 @@ console.log("Quiz route is loaded!");
 const express = require("express");
 const router = express.Router();
 const db = require("../db/client");
-const { getMoviesByGenre } = require("../utils/tmdb");
+const { getMoviesByGenre } = require("../utils/tmbd");
 
 router.post("/", async (req, res) => {
   console.log("Request body:", req.body); 
