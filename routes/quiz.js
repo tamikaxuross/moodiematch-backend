@@ -2,6 +2,7 @@ console.log("Quiz route is loaded!");
 const express = require("express");
 const router = express.Router();
 const db = require("../db/client");
+const { getMoviesByGenre } = require("../utils/tmdb");
 
 router.post("/", async (req, res) => {
   console.log("Request body:", req.body); 
@@ -36,16 +37,66 @@ router.post("/", async (req, res) => {
     return res.status(500).json({ error: "Could not insert quiz answers" });
   }
 
-  let movie;
-  try {
-    const movieResult = await db.query("SELECT * FROM movies ORDER BY RANDOM() LIMIT 1");
-    movie = movieResult.rows[0];
-    console.log("🎬 Selected movie:", movie);
-  } catch (error) {
-    console.error("Selecting random movie failed:", error);
-    return res.status(500).json({ error: "Could not get movie" });
-  }
+  const moodScores = {
+  happy: 0,
+  sad: 0,
+  romantic: 0,
+  scared: 0,
+  excited: 0,
+  thoughtful: 0
+};
 
+for (const item of answers) {
+  const answer = item.answer.toLowerCase();
+
+  if (answer === "forest") moodScores.thoughtful += 2;
+  if (answer === "city") moodScores.excited += 2;
+  if (answer === "space") moodScores.scared += 1;
+
+  if (answer === "happy") moodScores.happy += 3;
+  if (answer === "sad") moodScores.sad += 3;
+  if (answer === "romantic") moodScores.romantic += 3;
+  if (answer === "scared") moodScores.scared += 3;
+
+  if (answer === "red") moodScores.excited += 2;
+  if (answer === "blue") moodScores.sad += 2;
+  if (answer === "pink") moodScores.romantic += 2;
+
+  if (answer === "fast") moodScores.excited += 2;
+  if (answer === "slow") moodScores.thoughtful += 1;
+  if (answer === "chaotic") moodScores.scared += 1;
+  if (answer === "steady") moodScores.happy += 1;
+}
+
+// Pick mood with highest score
+const topMood = Object.keys(moodScores).reduce((a, b) =>
+  moodScores[a] > moodScores[b] ? a : b
+);
+
+// Map mood to TMDb genre
+const moodToGenre = {
+  happy: 35,
+  sad: 18,
+  romantic: 10749,
+  scared: 27,
+  excited: 28,
+  thoughtful: 99
+};
+
+const genreId = moodToGenre[topMood];
+
+let movie;
+try {
+  const movies = await getMoviesByGenre(genreId);
+  movie = movies[0];
+
+  if (!movie) throw new Error("No movie returned from TMDb");
+
+  console.log("🎬 Selected movie from TMDb:", movie);
+} catch (error) {
+  console.error("TMDb error:", error);
+  return res.status(500).json({ error: "Could not fetch movie from TMDb" });
+}
   try {
     await db.query(
       "UPDATE quizzes SET result_movie_id = $1 WHERE id = $2",
