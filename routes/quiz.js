@@ -66,6 +66,18 @@ for (const item of answers) {
   if (answer === "slow") moodScores.thoughtful += 1;
   if (answer === "chaotic") moodScores.scared += 1;
   if (answer === "steady") moodScores.happy += 1;
+
+  if (answer === "beach") moodScores.happy += 2;
+  if (answer === "sunny") moodScores.happy += 2;
+  if (answer === "rainy") moodScores.sad += 2;
+  if (answer === "cloudy") moodScores.thoughtful += 1;
+  if (answer === "stormy") moodScores.scared += 2;
+
+  if (answer === "black") moodScores.scared += 2;
+  if (answer === "spicy") moodScores.excited += 2;
+  if (answer === "sweet") moodScores.romantic += 2;
+  if (answer === "savory") moodScores.sad += 1;
+  if (answer === "cold") moodScores.scared += 1;
 }
 
 // Pick mood with highest score
