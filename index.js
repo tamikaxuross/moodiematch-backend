@@ -6,7 +6,12 @@ const app = express();
 const userRoutes = require("./routes/users");
 const quizRoutes = require("./routes/quiz");
 
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://moodiematch-frontend.onrender.com"],
+  methods: ["GET", "POST", "OPTIONS"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.use("/api/users", userRoutes);

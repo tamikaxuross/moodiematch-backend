@@ -50,6 +50,8 @@ router.post("/", async (req, res) => {
 for (const item of answers) {
   const answer = item.answer.toLowerCase();
 
+  console.log("Mood scores:", moodScores);
+
   if (answer === "forest") moodScores.thoughtful += 2;
   if (answer === "city") moodScores.excited += 2;
   if (answer === "space") moodScores.scared += 1;
@@ -85,6 +87,7 @@ for (const item of answers) {
 const topMood = Object.keys(moodScores).reduce((a, b) =>
   moodScores[a] > moodScores[b] ? a : b
 );
+console.log("Top mood:", topMood);
 
 // Map mood to TMDb genre
 const moodToGenre = {
@@ -97,6 +100,8 @@ const moodToGenre = {
 };
 
 const genreId = moodToGenre[topMood];
+console.log("Genre ID:", genreId);
+
 
   if (!genreId) {
     console.warn("No mood match. Using random fallback movie.");
@@ -109,6 +114,7 @@ const genreId = moodToGenre[topMood];
   } else {
     try {
       const movies = await getMoviesByGenre(genreId);
+      console.log("Movies returned from TMDb:", movies)
       movie = movies[0];
       if (!movie) throw new Error("No movie returned from TMDb");
       movie.poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
@@ -129,7 +135,7 @@ const genreId = moodToGenre[topMood];
     return res.status(500).json({ error: "Could not save movie to quiz." });
   }
 
-  // ✅ Normalize movie before sending to frontend
+  //Normalize movie before sending to frontend
   const normalizedMovie = {
     id: movie.id,
     title: movie.title || movie.name || "Untitled",
@@ -176,6 +182,7 @@ router.get("/:id", async (req, res) => {
       source: quiz.movie_source
     };
 
+    console.log("Normalized movie sent to frontend:", normalizedMovie);
     res.json({ quiz_id: quiz.id, movie: normalizedMovie });
   } catch (error) {
     console.error("GET /quiz/:id failed:", error);
