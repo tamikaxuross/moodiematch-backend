@@ -6,6 +6,9 @@ const app = express();
 const userRoutes = require("./routes/users");
 const quizRoutes = require("./routes/quiz");
 
+const favoritesRoutes = require("./routes/favorites");
+app.use("/api/favorites", favoritesRoutes);
+
 app.use(cors({
   origin: ["http://localhost:5173", "https://moodiematch-frontend.onrender.com"],
   methods: ["GET", "POST", "OPTIONS"],
