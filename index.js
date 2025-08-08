@@ -5,7 +5,9 @@ const app = express();
 
 const userRoutes = require("./routes/users");
 const quizRoutes = require("./routes/quiz");
+const favoritesRoutes = require("./routes/favorites");
 
+app.use("/api/favorites", favoritesRoutes)
 //const favoritesRoutes = require("./routes/favorites");
 //app.use("/api/favorites", favoritesRoutes);
 
@@ -38,3 +40,4 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
