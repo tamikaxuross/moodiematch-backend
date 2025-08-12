@@ -19,10 +19,12 @@ app.use((req, res, next) => {
 const userRoutes = require("./routes/users");
 const quizRoutes = require("./routes/quiz");
 const favoritesRoutes = require("./routes/favorites");
+const diaryRoutes = require("./routes/diary");
 
 app.use("/api/users", userRoutes);
 app.use("/api/quiz", quizRoutes);
 app.use("/api/favorites", favoritesRoutes)
+app.use("/api/diary", diaryRoutes);
 //const favoritesRoutes = require("./routes/favorites");
 //app.use("/api/favorites", favoritesRoutes);
 
