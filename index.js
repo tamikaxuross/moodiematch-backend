@@ -5,8 +5,9 @@ const app = express();
 
 app.use(cors({
   origin: ["http://localhost:5173", "https://moodiematch-frontend.onrender.com"],
-  methods: ["GET", "POST", "OPTIONS"],
-  credentials: true
+  methods: ["GET", "POST", "DELETE", "OPTIONS"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
